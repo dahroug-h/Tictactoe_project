@@ -20,11 +20,15 @@ jobs:
         sudo apt update
         sudo apt install -y qt5-qmake qtbase5-dev qttools5-dev-tools build-essential xvfb
 
-    - name: ✂️ Temporarily ignore problematic .ui files
+    - name: ✂️ Auto-remove problematic .ui files with <fontweight>
       working-directory: Qt_2
       run: |
-        sed -i '/loginpage.ui/d' TicTacToe.pro
-        sed -i '/mainwindow.ui/d' TicTacToe.pro
+        for ui in *.ui; do
+          if grep -q '<fontweight>' "$ui"; then
+            echo "⚠️ Removing $ui from .pro (contains <fontweight>)"
+            sed -i "/$ui/d" TicTacToe.pro
+          fi
+        done
 
     - name: 🛠️ Build main GUI game
       working-directory: Qt_2
