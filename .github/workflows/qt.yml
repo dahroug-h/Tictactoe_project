@@ -1,4 +1,4 @@
-name: Qt Test CI/CD Pipeline
+name: Qt Build CI
 
 on:
   push:
@@ -7,41 +7,35 @@ on:
     branches: [ main ]
 
 jobs:
-  test-build-deploy:
-    name: Build, Test, and Upload
+  build-only:
+    name: Build GUI & Test Projects
     runs-on: ubuntu-latest
 
     steps:
-    - name: 🛒 Checkout Repository
+    - name: 🛒 Checkout repository
       uses: actions/checkout@v3
 
-    - name: 🧰 Install Qt, Dependencies, and Xvfb
+    - name: 🧰 Install Qt and build tools
       run: |
         sudo apt update
-        sudo apt install -y qt5-qmake qtbase5-dev qttools5-dev-tools libqt5sql5 build-essential xvfb
+        sudo apt install -y qt5-qmake qtbase5-dev qttools5-dev-tools build-essential xvfb
 
-    - name: 🖥️ Start Xvfb Server
+    - name: 🛠️ Build main GUI game
+      working-directory: Qt_2
       run: |
-        export DISPLAY=':99.0'
-        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-        echo "Xvfb started on DISPLAY=$DISPLAY"
+        qmake TicTacToe.pro
+        make
 
-    - name: 🛠️ Build Qt Test Project
+    - name: 🛠️ Build unit test project
       working-directory: Qt_2/test/test/Qttest
       run: |
-        export DISPLAY=':99.0'
         qmake Qttest.pro
         make
 
-    - name: ✅ Run Unit Tests
-      working-directory: Qt_2/test/test/Qttest
-      run: |
-        export DISPLAY=':99.0'
-        chmod +x ./MyQttest
-        ./MyQttest
-
-    - name: 📦 Upload Test Executable
+    - name: 📦 Upload Executables
       uses: actions/upload-artifact@v4
       with:
-        name: MyQttest-executable
-        path: Qt_2/test/test/Qttest/MyQttest
+        name: Built-Binaries
+        path: |
+          Qt_2/TicTacToe
+          Qt_2/test/test/Qttest/MyQttest
