@@ -24,6 +24,7 @@ A modern, GUI-based Tic Tac Toe game built with **Qt (C++)**, featuring:
 ---
 
 ## 📁 Project Structure
+```text
 TicTacToe_Game/
 │
 ├── Qt_2/
@@ -34,8 +35,7 @@ TicTacToe_Game/
 │           └── Qttest/
 │               ├── Qttest.pro
 │               └── MyQttest  # Unit test executable
-
-
+```
 If you're cloning the project and want to run tests locally:
 
 
