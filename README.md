@@ -23,17 +23,18 @@ A modern, GUI-based Tic Tac Toe game built with **Qt (C++)**, featuring:
 
 ---
 
-## 🧪 Running the Unit Tests
+## 📁 Project Structure
 TicTacToe_Game/
 │
 ├── Qt_2/
-│   ├── TicTacBoom.pro         # Main GUI app
-│   ├── (source files for GUI)
+│   ├── TicTacToe.pro          # Main GUI app
+│   ├── *.cpp / *.h / *.ui     # Game source files (GUI, logic, etc.)
 │   └── test/
 │       └── test/
 │           └── Qttest/
 │               ├── Qttest.pro
-│               └── MyQttest  # Unit tests
+│               └── MyQttest  # Unit test executable
+
 
 If you're cloning the project and want to run tests locally:
 
