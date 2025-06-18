@@ -15,20 +15,28 @@ jobs:
     - name: 🛒 Checkout Repository
       uses: actions/checkout@v3
 
-    - name: 🧰 Install Qt and Dependencies
+    - name: 🧰 Install Qt, Dependencies, and Xvfb
       run: |
         sudo apt update
-        sudo apt install -y qt5-qmake qtbase5-dev qttools5-dev-tools libqt5sql5 build-essential
+        sudo apt install -y qt5-qmake qtbase5-dev qttools5-dev-tools libqt5sql5 build-essential xvfb
+
+    - name: 🖥️ Start Xvfb Server
+      run: |
+        export DISPLAY=':99.0'
+        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+        echo "Xvfb started on DISPLAY=$DISPLAY"
 
     - name: 🛠️ Build Qt Test Project
       working-directory: Qt_2/test/test/Qttest
       run: |
+        export DISPLAY=':99.0'
         qmake Qttest.pro
         make
 
     - name: ✅ Run Unit Tests
       working-directory: Qt_2/test/test/Qttest
       run: |
+        export DISPLAY=':99.0'
         chmod +x ./MyQttest
         ./MyQttest
 
