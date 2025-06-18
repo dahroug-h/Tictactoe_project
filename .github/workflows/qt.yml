@@ -20,6 +20,11 @@ jobs:
         sudo apt update
         sudo apt install -y qt5-qmake qtbase5-dev qttools5-dev-tools build-essential xvfb
 
+    - name: ✂️ Temporarily ignore loginpage.ui (invalid tag)
+      working-directory: Qt_2
+      run: |
+        sed -i '/loginpage.ui/d' TicTacToe.pro
+
     - name: 🛠️ Build main GUI game
       working-directory: Qt_2
       run: |
