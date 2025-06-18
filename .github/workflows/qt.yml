@@ -1,0 +1,39 @@
+name: Qt Test CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-build-deploy:
+    name: Build, Test, and Upload
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🛒 Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: 🧰 Install Qt and Dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y qt5-qmake qtbase5-dev qttools5-dev-tools libqt5sql5 build-essential
+
+    - name: 🛠️ Build Qt Test Project
+      working-directory: Qt_2/test/test/Qttest
+      run: |
+        qmake Qttest.pro
+        make
+
+    - name: ✅ Run Unit Tests
+      working-directory: Qt_2/test/test/Qttest
+      run: |
+        chmod +x ./MyQttest
+        ./MyQttest
+
+    - name: 📦 Upload Test Executable
+      uses: actions/upload-artifact@v3
+      with:
+        name: MyQttest-executable
+        path: Qt_2/test/test/Qttest/MyQttest
