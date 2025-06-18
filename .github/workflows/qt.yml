@@ -20,7 +20,7 @@ jobs:
         sudo apt update
         sudo apt install -y qt5-qmake qtbase5-dev qttools5-dev-tools build-essential xvfb
 
-    - name: ✂️ Ignore problematic .ui files
+    - name: ✂️ Remove problematic .ui files from .pro
       working-directory: Qt_2
       run: |
         for ui in *.ui; do
@@ -30,11 +30,14 @@ jobs:
           fi
         done
 
-    - name: 🚫 Skip buggy source file (gameplaywindow.cpp)
+    - name: 🚫 Skip buggy source files (gameplaywindow.cpp, loginpage.cpp)
       working-directory: Qt_2
       run: |
-        sed -i '/gameplaywindow.cpp/d' TicTacToe.pro
-        sed -i '/gameplaywindow.h/d' TicTacToe.pro
+        for src in gameplaywindow loginpage; do
+          echo "Removing $src.cpp and $src.h from .pro"
+          sed -i "/$src.cpp/d" TicTacToe.pro
+          sed -i "/$src.h/d" TicTacToe.pro
+        done
 
     - name: 🛠️ Build main GUI game
       working-directory: Qt_2
@@ -42,7 +45,7 @@ jobs:
         qmake TicTacToe.pro
         make
 
-    - name: 🛠️ Build unit test project
+    - name: 🧪 Build unit test project
       working-directory: Qt_2/test/test/Qttest
       run: |
         qmake Qttest.pro
