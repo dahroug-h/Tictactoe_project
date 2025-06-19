@@ -28,7 +28,9 @@ A modern, GUI-based Tic Tac Toe game built with **Qt (C++)**, featuring:
 - 📊 Track your wins/losses
 - ✅ Automated unit testing using GitHub Actions
 
----
+
+----------------
+
 
 ## 📁 Project Structure
 ```text
