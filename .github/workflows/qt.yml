@@ -1,4 +1,4 @@
-name: Build and Fake-Test Qt Project
+name: Build and Test Qt Project
 
 on:
   push:
