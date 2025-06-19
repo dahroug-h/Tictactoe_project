@@ -11,7 +11,7 @@ A modern, GUI-based Tic Tac Toe game built with **Qt (C++)**, featuring:
 - Unit tests using Qt Test Framework
 
 -------------------------
-##Team members:
+## Team members:
 
   1-Hassan Dahrog(Leader)
   2-Hassan Ehab
