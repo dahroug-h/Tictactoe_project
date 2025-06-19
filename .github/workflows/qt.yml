@@ -1,52 +1,31 @@
-name: Build and Test Qt Project
+name: Build Qt Project
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 📥 Checkout Repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: 🧱 Install Qt and Dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y qt5-qmake qtbase5-dev qttools5-dev-tools qttools5-dev \
-        libqt5sql5 libqt5sql5-sqlite libqt5svg5-dev libqt5websockets5-dev \
-        libxcb-xinerama0 build-essential
+      - name: Install Qt and dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y qtbase5-dev qttools5-dev qttools5-dev-tools build-essential
 
-    - name: 🧹 Clean problematic .ui files from .pro
-      working-directory: ./Qt_2
-      run: |
-        for ui in *.ui; do
-          if grep -q "<fontweight>" "$ui"; then
-            echo "⚠️ Removing $ui from .pro (contains <fontweight>)"
-            sed -i "/$ui/d" TicTacToe.pro
-          fi
-        done
+      - name: Build Qt Project
+        working-directory: Qt_2
+        run: |
+          qmake TicTacToe.pro
+          make
 
-    - name: 🏗️ Build Qt Project
-      working-directory: ./Qt_2
-      continue-on-error: true
-      run: |
-        qmake TicTacToe.pro
-        make || true
-
-    - name: ✅ Unit Tests
-      continue-on-error: true
-      working-directory: ./Qt_2
-      run: |
-        echo "Running  tests..."
-        [[ -f ./MyQttest ]] && ./MyQttest || echo "Moving on..."
-
-    - name: 📦 Upload Executable (Optional)
-      uses: actions/upload-artifact@v4
-      with:
-        name: TicTacToe-App
-        path: Qt_2/TicTacToe # عدل ده لو اسم ملف التنفيذ مختلف
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TicTacToe-App
+          path: Qt_2/TicTacToe  # غيّر الاسم لو الملف التنفيذي مختلف
