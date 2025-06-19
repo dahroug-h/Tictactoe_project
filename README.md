@@ -1,6 +1,6 @@
 # Tictactoe_project
 Tictactoe_project
-# 🎮 TicTacBoom - Qt GUI Tic Tac Toe Game
+# 🎮 TicTacToe - Qt GUI Tic Tac Toe Game
 
 ![CI](https://github.com/dahroug-h/Tictactoe_project/actions/workflows/qt.yml/badge.svg)
 
