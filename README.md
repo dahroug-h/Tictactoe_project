@@ -10,8 +10,15 @@ A modern, GUI-based Tic Tac Toe game built with **Qt (C++)**, featuring:
 - Game statistics and history
 - Unit tests using Qt Test Framework
 
----
+-------------------------
+Team members:
 
+  1-Hassan Dahrog(Leader)
+  2-Hassan Ehab
+  3-Ahmed Saber
+  4-Hesham Selim
+  5-Mahmoud Matar
+-------------------------
 ## 🚀 Features
 
 - 🎨 Beautiful user interface with `Qt Widgets`
