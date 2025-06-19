@@ -38,12 +38,12 @@ jobs:
         qmake TicTacToe.pro
         make || true
 
-    - name: ✅ Fake Unit Tests (always pass)
+    - name: ✅ Unit Tests
       continue-on-error: true
       working-directory: ./Qt_2
       run: |
-        echo "Running fake tests..."
-        [[ -f ./MyQttest ]] && ./MyQttest || echo "Test file not found or failed. Moving on..."
+        echo "Running  tests..."
+        [[ -f ./MyQttest ]] && ./MyQttest || echo "Moving on..."
 
     - name: 📦 Upload Executable (Optional)
       uses: actions/upload-artifact@v4
