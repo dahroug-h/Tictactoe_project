@@ -13,7 +13,7 @@ A modern, GUI-based Tic Tac Toe game built with **Qt (C++)**, featuring:
 -------------------------
 ## Team members:
 
-  - Hassan Dahroug(Leader)
+  - Hassan Dahroug (Leader)
   - Hassan Ehab
   - Ahmed Saber
   - Hesham Selim
